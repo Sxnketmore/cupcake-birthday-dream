@@ -1,36 +1,55 @@
 import { Button } from "@/components/ui/button";
-import { Heart, Music } from "lucide-react";
+import { Heart } from "lucide-react";
 
-interface EndingSectionProps {
-  onReplayMusic?: () => void;
-}
-
-const EndingSection = ({ onReplayMusic }: EndingSectionProps) => {
+const EndingSection = () => {
   const createFirework = () => {
-    // Create floating hearts instead of traditional fireworks
     const container = document.getElementById('fireworks-container');
     if (!container) return;
 
-    const heart = document.createElement('div');
-    heart.innerHTML = '💖';
-    heart.style.position = 'absolute';
-    heart.style.left = Math.random() * 100 + '%';
-    heart.style.bottom = '0';
-    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
-    heart.style.animation = `float ${3 + Math.random() * 2}s ease-out forwards`;
+    // Create heart-shaped firework burst
+    const colors = ['💖', '💕', '💗', '💞', '💝'];
+    const heartCount = 8;
     
-    container.appendChild(heart);
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.position = 'absolute';
+      heart.style.left = '50%';
+      heart.style.top = '50%';
+      heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+      
+      const angle = (i / heartCount) * Math.PI * 2;
+      const distance = 100 + Math.random() * 100;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance;
+      
+      heart.style.animation = `none`;
+      heart.style.transition = 'all 1.5s ease-out';
+      heart.style.opacity = '1';
+      
+      container.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.style.transform = `translate(${tx}px, ${ty}px) rotate(${Math.random() * 360}deg)`;
+        heart.style.opacity = '0';
+      }, 10);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
+      setTimeout(() => {
+        heart.remove();
+      }, 1500);
+    }
   };
 
   // Create fireworks periodically
   setTimeout(() => {
-    const interval = setInterval(createFirework, 500);
-    setTimeout(() => clearInterval(interval), 10000);
-  }, 500);
+    createFirework();
+    const interval = setInterval(createFirework, 2000);
+    setTimeout(() => clearInterval(interval), 12000);
+  }, 1000);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-20 px-4">
@@ -55,18 +74,16 @@ const EndingSection = ({ onReplayMusic }: EndingSectionProps) => {
           </p>
         </div>
 
-        {onReplayMusic && (
-          <Button
-            onClick={onReplayMusic}
-            size="lg"
-            variant="outline"
-            className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-serif text-lg px-8 py-6 rounded-full shadow-lg transition-all hover:scale-105 animate-fade-in-up"
-            style={{ animationDelay: '0.5s' }}
-          >
-            <Music className="mr-2" />
-            Replay Music
-          </Button>
-        )}
+        <Button
+          onClick={scrollToTop}
+          size="lg"
+          variant="outline"
+          className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-serif text-lg px-8 py-6 rounded-full shadow-lg transition-all hover:scale-105 animate-fade-in-up"
+          style={{ animationDelay: '0.5s' }}
+        >
+          <Heart className="mr-2" fill="currentColor" />
+          Relive Our Moments
+        </Button>
 
         <div className="pt-8 animate-fade-in-up" style={{ animationDelay: '1s' }}>
           <p className="text-sm text-muted-foreground italic">

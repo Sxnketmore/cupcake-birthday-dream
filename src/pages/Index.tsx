@@ -7,6 +7,12 @@ import LoveNotes from "@/components/LoveNotes";
 import QuotesCarousel from "@/components/QuotesCarousel";
 import SurpriseSection from "@/components/SurpriseSection";
 import EndingSection from "@/components/EndingSection";
+import PetalToggle from "@/components/PetalToggle";
+import MusicPlayer from "@/components/MusicPlayer";
+import FloatingLoveNotes from "@/components/FloatingLoveNotes";
+import ReasonsILoveYou from "@/components/ReasonsILoveYou";
+import OurFuture from "@/components/OurFuture";
+import SecretMessage from "@/components/SecretMessage";
 
 const Index = () => {
   const mainContentRef = useRef<HTMLDivElement>(null);
@@ -15,14 +21,12 @@ const Index = () => {
     mainContentRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleReplayMusic = () => {
-    // User can add audio element and implement replay functionality
-    console.log("Replay music clicked");
-  };
-
   return (
     <div className="relative">
       <FloatingHearts />
+      <PetalToggle />
+      <MusicPlayer />
+      <SecretMessage />
       
       <WelcomeSection onEnter={scrollToContent} />
       
@@ -30,9 +34,14 @@ const Index = () => {
         <PhotoGallery />
         <Timeline />
         <LoveNotes />
+        <ReasonsILoveYou />
         <QuotesCarousel />
+        <div className="py-12">
+          <FloatingLoveNotes />
+        </div>
+        <OurFuture />
         <SurpriseSection />
-        <EndingSection onReplayMusic={handleReplayMusic} />
+        <EndingSection />
       </div>
     </div>
   );

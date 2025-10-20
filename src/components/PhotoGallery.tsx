@@ -77,15 +77,10 @@ const PhotoGallery = () => {
         </div>
 
         <Dialog open={!!selectedPhoto} onOpenChange={() => setSelectedPhoto(null)}>
-          <DialogContent className="max-w-2xl glass-card border-primary/30">
-            <DialogHeader>
-              <DialogTitle className="text-3xl font-cursive text-gradient text-center">
-                A Special Message 💕
-              </DialogTitle>
-            </DialogHeader>
+          <DialogContent className="max-w-3xl bg-transparent border-none shadow-none">
             {selectedPhoto && (
-              <div className="space-y-6">
-                <div className="aspect-square rounded-lg overflow-hidden">
+              <div className="polaroid mx-auto max-w-md">
+                <div className="aspect-square overflow-hidden">
                   <img
                     src={selectedPhoto.src}
                     alt="Selected memory"
@@ -95,9 +90,9 @@ const PhotoGallery = () => {
                     }}
                   />
                 </div>
-                <DialogDescription className="text-center text-xl font-serif text-foreground italic">
-                  "{selectedPhoto.message}"
-                </DialogDescription>
+                <p className="text-center text-lg font-cursive text-gray-800 mt-4 italic">
+                  {selectedPhoto.message}
+                </p>
               </div>
             )}
           </DialogContent>
